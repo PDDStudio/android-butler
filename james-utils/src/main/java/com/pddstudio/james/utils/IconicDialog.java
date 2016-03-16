@@ -69,12 +69,13 @@ public class IconicDialog extends AbstractService implements AdapterView.OnItemC
     }
 
     public void hide() {
-        if(mIconDialog.isVisible()) mIconDialog.dismiss();
+        mIconDialog.dismiss();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d("IconicDialog", "Clicked on Icon: " + position);
+        hide();
         if(mIconCallback != null) mIconCallback.onIconSelected(mIconAdapter.getItem(position));
     }
 
