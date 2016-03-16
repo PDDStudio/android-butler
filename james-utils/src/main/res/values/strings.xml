@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">james-utils</string>
+    <string name="icon_chooser_dialog_title">Pick an Icon</string>
 </resources>

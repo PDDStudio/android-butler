@@ -7,9 +7,10 @@ import android.content.Context;
  * on 16.03.16. For more Details and Licensing
  * have a look at the README.md
  */
-public final class James {
+public final class James<T> {
 
     private final Context mContext;
+    private T serviceType;
 
     private James(Context context) {
         this.mContext = context;
@@ -17,6 +18,10 @@ public final class James {
 
     public static James with(Context context) {
         return new James(context);
+    }
+
+    public T serve(Object o) {
+        return serviceType;
     }
 
 }
