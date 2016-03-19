@@ -18,6 +18,8 @@ public class TwilioService extends AbstractService {
     private final James mJames;
     private String mAccountSid;
     private String mToken;
+    private String mTargetAddress;
+    private ResponseCallback mResponseCallback;
 
     public TwilioService(James james) {
         this.mJames = james;
@@ -27,6 +29,27 @@ public class TwilioService extends AbstractService {
         this.mAccountSid = accountSid;
         this.mToken = token;
         return this;
+    }
+
+    public TwilioService setResponseCallback(ResponseCallback responseCallback) {
+        this.mResponseCallback = responseCallback;
+        return this;
+    }
+
+    private void validateService() {
+        if(mAccountSid == null || mAccountSid.isEmpty()) throw new RuntimeException("TwilioService AccountSID can't be null or empty.");
+        if(mToken == null || mToken.isEmpty()) throw new RuntimeException("TwilioService Token can't be null or empty");
+        if(mResponseCallback == null) throw new RuntimeException("TwilioService can't be executed without a callback.");
+    }
+
+    public void execute(String phoneNumber) {
+        //assign the target address
+        this.mTargetAddress = phoneNumber;
+        //validate that everything is correct
+        if(mTargetAddress == null || mTargetAddress.isEmpty()) throw new RuntimeException("Can't execute a request on a phone number which is null or empty.");
+        validateService();
+        //execute the task
+        //TODO
     }
 
     @Override
