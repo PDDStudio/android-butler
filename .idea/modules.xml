@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidButler.iml" filepath="$PROJECT_DIR$/AndroidButler.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/james-core/james-core.iml" filepath="$PROJECT_DIR$/james-core/james-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/james-http/james-http.iml" filepath="$PROJECT_DIR$/james-http/james-http.iml" />
       <module fileurl="file://$PROJECT_DIR$/james-utils/james-utils.iml" filepath="$PROJECT_DIR$/james-utils/james-utils.iml" />
     </modules>
   </component>

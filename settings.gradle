@@ -1,1 +1,1 @@
-include ':app', ':james-core', ':james-utils'
+include ':app', ':james-core', ':james-utils', ':james-http'
