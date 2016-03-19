@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.pddstudio.james.core.James;
+import com.pddstudio.james.http.TwilioService;
 import com.pddstudio.james.utils.IconicDialog;
 
 public class MainActivity extends AppCompatActivity implements IconicDialog.IconCallback {
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity implements IconicDialog.Icon
         IconicDialog iconicDialog = James.with(this).serve(IconicDialog.class);
         iconicDialog.withIconCallback(this);
         iconicDialog.show();
+    }
+
+    private void demoTwilioRequest() {
+        TwilioService twilioService = James.with(this).serve(TwilioService.class).setCredentials("", "");
     }
 
     @Override
