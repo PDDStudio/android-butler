@@ -1,9 +1,18 @@
 package com.pddstudio.james.http;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.pddstudio.james.core.James;
 import com.pddstudio.james.core.abstracts.AbstractService;
+import com.pddstudio.james.http.model.TwilioResponse;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * This Class was created by Patrick J
@@ -13,6 +22,9 @@ import com.pddstudio.james.core.abstracts.AbstractService;
 public class TwilioService extends AbstractService {
 
     public interface ResponseCallback {
+        void onRequestStarted();
+        void onRequestFailed();
+        void onRequestFinished(@Nullable TwilioResponse twilioResponse);
     }
 
     private final James mJames;
@@ -49,7 +61,7 @@ public class TwilioService extends AbstractService {
         if(mTargetAddress == null || mTargetAddress.isEmpty()) throw new RuntimeException("Can't execute a request on a phone number which is null or empty.");
         validateService();
         //execute the task
-        //TODO
+        new RequestTask().execute();
     }
 
     @Override
@@ -62,11 +74,49 @@ public class TwilioService extends AbstractService {
         return TwilioService.class;
     }
 
-    private class RequestTask extends AsyncTask<Void, Void, Void> {
+    private class RequestTask extends AsyncTask<Void, Void, TwilioResponse> {
+
+        private static final String TWILIO_URL_PRE = "https://lookups.twilio.com/v1/PhoneNumbers/";
+        private static final String TWILIO_URL_POST = "?Type=carrier";
+
+        private RequestTask() {}
 
         @Override
-        protected Void doInBackground(Void... params) {
+        public void onPreExecute() {
+            mResponseCallback.onRequestStarted();
+        }
+
+        @Override
+        protected TwilioResponse doInBackground(Void... params) {
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Gson gson = new Gson();
+
+            try {
+
+                Request request = new Request.Builder()
+                        .url(TWILIO_URL_PRE + mTargetAddress + TWILIO_URL_POST)
+                        .addHeader(mAccountSid, mToken)
+                        .build();
+
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()) return gson.fromJson(response.body().charStream(), TwilioResponse.class);
+                else throw new IOException("Request wasn't successful");
+            } catch (IOException io) {
+                io.printStackTrace();
+                this.cancel(true);
+            }
             return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mResponseCallback.onRequestFailed();
+        }
+
+        @Override
+        public void onPostExecute(TwilioResponse twilioResponse) {
+            mResponseCallback.onRequestFinished(twilioResponse);
         }
 
     }
