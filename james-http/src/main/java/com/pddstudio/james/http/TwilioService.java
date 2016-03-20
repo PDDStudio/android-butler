@@ -54,7 +54,7 @@ public class TwilioService extends AbstractService {
         if(mResponseCallback == null) throw new RuntimeException("TwilioService can't be executed without a callback.");
     }
 
-    public void execute(String phoneNumber) {
+    public void lookup(String phoneNumber) {
         //assign the target address
         this.mTargetAddress = phoneNumber;
         //validate that everything is correct
