@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:id="@+id/dialog_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/dialog_header_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/dialog_title_size"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        tools:text="Dialog Sample Title" />
+
+    <TextView
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dialog_content_size"
+        android:padding="16dp"
+        tools:text="Some content goes here..."/>
+
+</LinearLayout>
