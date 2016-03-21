@@ -1,5 +1,7 @@
 package com.pddstudio.james.core.services;
 
+import android.support.annotation.RawRes;
+
 import com.pddstudio.james.core.James;
 import com.pddstudio.james.core.abstracts.AbstractService;
 
@@ -11,9 +13,14 @@ import com.pddstudio.james.core.abstracts.AbstractService;
 public class MediaPlayer extends AbstractService {
 
     private final James mJames;
+    private android.media.MediaPlayer mMediaPlayer;
 
     public MediaPlayer(James james) {
         this.mJames = james;
+    }
+
+    public void play(@RawRes int rawId) {
+        this.mMediaPlayer = android.media.MediaPlayer.create(mJames.getContext(), rawId);
     }
 
     @Override
