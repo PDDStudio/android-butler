@@ -194,12 +194,12 @@ public class MaterialDialog extends AbstractService implements DialogInterface.O
 
     @Override
     public String getServiceName() {
-        return null;
+        return getClass().getSimpleName();
     }
 
     @Override
     public Class<?> getServiceClass() {
-        return null;
+        return MaterialDialog.class;
     }
 
     @Override
