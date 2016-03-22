@@ -11,12 +11,12 @@ import android.widget.Button;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.pddstudio.james.core.James;
+import com.pddstudio.james.core.utils.Logger;
 import com.pddstudio.james.http.RemoteJamesService;
 import com.pddstudio.james.http.TwilioService;
+import com.pddstudio.james.http.interfaces.RemoteJamesCallback;
 import com.pddstudio.james.utils.IconicDialog;
 import com.pddstudio.james.utils.MaterialDialog;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements IconicDialog.IconCallback, View.OnClickListener {
 
@@ -58,19 +58,31 @@ public class MainActivity extends AppCompatActivity implements IconicDialog.Icon
     }
 
     private void demoConnection() {
-        //to avoid network on main thread exception
-        new Thread(new Runnable() {
+        RemoteJamesService remoteJamesService = James.with(MainActivity.this).serve(RemoteJamesService.class);
+        remoteJamesService.setConnectionInfo("10.128.64.173", 3012);
+        remoteJamesService.setRemoteCallback(new RemoteJamesCallback() {
             @Override
-            public void run() {
-                RemoteJamesService remoteJamesService = James.with(MainActivity.this).serve(RemoteJamesService.class);
-                remoteJamesService.setConnectionInfo("10.128.64.173", 3012);
-                try {
-                    remoteJamesService.connect();
-                } catch (IOException io) {
-                    io.printStackTrace();
-                }
+            public void onConnected() {
+                Logger.log(this, "Connected!");
             }
-        }).start();
+
+            @Override
+            public void onConnectionFailed(Throwable throwable) {
+                Logger.log(this, "Connection failed!");
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onCallbackReceived(Object o) {
+                Logger.log(this, o.toString());
+            }
+
+            @Override
+            public void onConnectionClosed() {
+                Logger.log(this, "Connection closed.");
+            }
+        });
+        remoteJamesService.connect();
     }
 
     @Override
