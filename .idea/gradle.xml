@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/james-core" />
             <option value="$PROJECT_DIR$/james-http" />
+            <option value="$PROJECT_DIR$/james-server" />
             <option value="$PROJECT_DIR$/james-utils" />
           </set>
         </option>
@@ -20,6 +21,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/james-core" />
             <option value="$PROJECT_DIR$/james-http" />
+            <option value="$PROJECT_DIR$/james-server" />
             <option value="$PROJECT_DIR$/james-utils" />
           </set>
         </option>
